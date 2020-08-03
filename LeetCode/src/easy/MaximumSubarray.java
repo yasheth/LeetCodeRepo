@@ -15,6 +15,17 @@ public class MaximumSubarray {
             max = Math.max(max, dp[i]);
         }
         return max;
+//        int sum = 0,maxSum = Integer.MIN_VALUE;
+//        for(int i = 0; i < nums.length; i++){
+//            if(sum < 0){
+//                sum = nums[i];
+//            }else{
+//                sum = sum + nums[i];
+//            }
+//            if(sum > maxSum)
+//                maxSum = sum;  
+//        }
+//        return maxSum;
 	}
 
 	public static void main(String[] args) {
