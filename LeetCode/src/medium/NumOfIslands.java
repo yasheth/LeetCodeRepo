@@ -1,41 +1,50 @@
 package medium;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 public class NumOfIslands {
 
-	static char [][]visited;
-	static int nr,nc;
-    public static int numIslands(char[][] grid) {
-        if (grid == null || grid.length == 0) 
-            return 0;
+	static int[][] grid;
+    static boolean[][] seen;
+    static ArrayList<Integer> shape;
 
-        nr = grid.length;
-        nc = grid[0].length;
-        visited = new char[nr][nc];   
-        int num_islands = 0;
-        for (int r = 0; r < nr; r++) {
-            for (int c = 0; c < nc; c++) {
-                if (grid[r][c] == '1' && visited[r][c] != 'X') {
-                    num_islands++;
-                    recursion(grid,r,c);
+    public static void explore(int r, int c, int di) {
+        if (0 <= r && r < grid.length && 0 <= c && c < grid[0].length &&
+                grid[r][c] == 1 && !seen[r][c]) {
+            seen[r][c] = true;
+            shape.add(di);
+            explore(r+1, c, 1);
+            explore(r-1, c, 2);
+            explore(r, c+1, 3);
+            explore(r, c-1, 4);
+            shape.add(0);
+        }
+    }
+    public static int numDistinctIslands(int[][] grid) {
+        NumOfIslands.grid = grid;
+        seen = new boolean[grid.length][grid[0].length];
+        Set shapes = new HashSet<ArrayList<Integer>>();
+
+        for (int r = 0; r < grid.length; r++) {
+            for (int c = 0; c < grid[0].length; c++) {
+                shape = new ArrayList<Integer>();
+                explore(r, c, 0);
+                if (!shape.isEmpty()) {
+                    shapes.add(shape);
                 }
             }
         }
-        return num_islands;
+
+        return shapes.size();
     }
 
-	private static void recursion(char[][] grid, int r, int c) {
-		if(r<0 || c<0 || r>=nr || c>=nc || grid[r][c] == '0' || visited[r][c] =='X')
-			return;
-		visited[r][c]='X';
-		recursion(grid,r-1,c);
-		recursion(grid,r+1,c);
-		recursion(grid,r,c-1);
-		recursion(grid,r,c+1);
-	}
 		
 	
 
 	public static void main(String[] args) {
-		System.out.println(numIslands(new char[][] {{'1','1','0','0','0'},{'0','0','1','0','1'}}));
+		System.out.println(numDistinctIslands(new int[][] {{1,1,0,0,0},{1,1,0,0,0}}));
 	}
 
 }
