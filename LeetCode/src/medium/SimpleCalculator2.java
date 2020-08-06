@@ -12,11 +12,11 @@ public class SimpleCalculator2 {
 	    int num = 0;
 	    char sign = '+';
 	    for(int i=0;i<len;i++){
-	        if(Character.isDigit(s.charAt(i))){
+	        if(s.charAt(i) <= '9'){
 	            // num = num * 10 + Character.getNumericValue(s.charAt(i));
 	            num = num * 10 + s.charAt(i) - '0';
 	        }
-	        if((!Character.isDigit(s.charAt(i)) && ' '!=s.charAt(i)) || i==len-1){
+	        if((!(s.charAt(i) <= '9') && ' ' != s.charAt(i)) || i==len-1){
 	            if(sign=='-'){
 	                stack.push(-num);
 	            }
