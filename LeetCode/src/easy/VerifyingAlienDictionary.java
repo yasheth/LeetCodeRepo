@@ -1,7 +1,5 @@
 package easy;
 
-import java.util.Stack;
-
 public class VerifyingAlienDictionary {
 
 	static int[] mapping = new int[26];

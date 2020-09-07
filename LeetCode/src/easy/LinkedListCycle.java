@@ -4,19 +4,23 @@ import structure.ListNode;
 
 public class LinkedListCycle {
 
-	public static ListNode reverseList(ListNode head) {
-	    ListNode prev = null;
-	    ListNode curr = head;
-	    while (curr != null) {
-	        ListNode nextTemp = curr.next;
-	        curr.next = prev;
-	        prev = curr;
-	        curr = nextTemp;
-	    }
-	    return prev;
-	    }
+	public static boolean hasCycle(ListNode head) {
+        if (head == null || head.next == null) {
+           return false;
+       }
+       ListNode slow = head;
+       ListNode fast = head.next;
+       while (slow != fast) {
+           if (fast == null || fast.next == null) {
+               return false;
+           }
+           slow = slow.next;
+           fast = fast.next.next;
+       }
+       return true;
+   }
 	 
 	public static void main(String[] args) {
-		System.out.println(reverseList(new ListNode()));
+		System.out.println(hasCycle(new ListNode()));
 	}
 }
